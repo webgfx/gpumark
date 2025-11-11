@@ -21,8 +21,8 @@ const std::string slash = "/";
 const std::string slash = "/";
 #endif
 
-static const char *shaderFolder   = "src/aquarium/shaders";
-static const char *resourceFolder = "src/aquarium/assets";
+static const char *shaderFolder   = "shaders";
+static const char *resourceFolder = "assets";
 
 const std::vector<std::string> skyBoxUrls = {
     "GlobeOuter_EM_positive_x.jpg", "GlobeOuter_EM_negative_x.jpg", "GlobeOuter_EM_positive_y.jpg",
@@ -51,7 +51,7 @@ ResourceHelper::ResourceHelper(const std::string &mBackendName,
 
     size_t nPos = mPath.find_last_of(slash);
     std::ostringstream pathStream;
-    pathStream << mPath.substr(0, nPos) << slash << ".." << slash << ".." << slash;
+    pathStream << mPath.substr(0, nPos) << slash;
     mPath = pathStream.str();
 
     std::ostringstream placementStream;

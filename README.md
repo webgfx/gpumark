@@ -43,8 +43,3 @@ GPUMark is a performance test suite.
     <td>https://github.com/GPUOpen-LibrariesAndSDKs/nBodyD3D12/tree/master/Samples/D3D12nBodyGravity</td>
   </tr>
 </table>
-
-Provision
-* Ensure you have depot_tools and it's in your path
-* gclient sync
-* python gpumark.py --release

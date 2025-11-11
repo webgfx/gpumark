@@ -34,7 +34,7 @@ DXSample::~DXSample()
 // Helper function for resolving the full path of assets.
 std::wstring DXSample::GetAssetFullPath(LPCWSTR assetName)
 {
-	return m_assetsPath.append(L"/../../src/nbody/") + assetName;
+	return m_assetsPath + assetName;
 }
 
 // Helper function for acquiring the first available hardware adapter that supports Direct3D 12.
