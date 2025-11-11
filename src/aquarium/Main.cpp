@@ -6,15 +6,27 @@
 // Main.cpp: Entry class of Aquarium.
 
 #include "Aquarium.h"
+#include <iostream>
+#include <stdexcept>
 
 int main(int argc, char **argv) {
-    Aquarium aquarium;
-    if (!aquarium.init(argc, argv))
-    {
+    try {
+        Aquarium aquarium;
+        if (!aquarium.init(argc, argv))
+        {
+            return -1;
+        }
+
+        aquarium.display();
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Fatal error: " << e.what() << std::endl;
         return -1;
     }
-
-    aquarium.display();
+    catch (...) {
+        std::cerr << "Unknown fatal error occurred" << std::endl;
+        return -1;
+    }
 
     return 0;
 }

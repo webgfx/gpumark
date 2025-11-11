@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
@@ -35,7 +36,10 @@ inline void ThrowIfFailed(HRESULT hr)
 {
     if (FAILED(hr))
     {
-        printf("D3D12 backend failed: file \"%s\", line %d\n", __FILE__, __LINE__);
+        char errorMsg[512];
+        sprintf_s(errorMsg, sizeof(errorMsg), "D3D12 HRESULT failed with code 0x%08X at file \"%s\", line %d\n", hr, __FILE__, __LINE__);
+        std::cerr << errorMsg;
+        throw std::runtime_error(errorMsg);
     }
 }
 
@@ -329,7 +333,7 @@ bool ContextD3D12::GetHardwareAdapter(
 
         if (useDefaultGpu ||
             (enableDiscreteGpu && (desc.VendorId == 0x10DE || desc.VendorId == 0x1002)) ||
-            (enableIntegratedGpu && desc.VendorId == 0x8086))
+            (enableIntegratedGpu && (desc.VendorId == 0x8086 || desc.VendorId == 0x4d4f4351)))
         {
             if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
             {

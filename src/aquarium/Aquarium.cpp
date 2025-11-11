@@ -371,9 +371,8 @@ bool Aquarium::init(int argc, char **argv)
         {
             toggleBitset.set(static_cast<size_t>(TOGGLE::DISABLECONTROLPANEL));
         }
-
-        //else if (cmd == "--enable-full-screen-mode")
-        //{
+        else if (cmd == "--enable-full-screen-mode")
+        {
             if (!availableToggleBitset.test(static_cast<size_t>(TOGGLE::ENABLEFULLSCREENMODE)))
             {
                 std::cerr << "Full screen mode isn't supported for the backend." << std::endl;
@@ -381,7 +380,7 @@ bool Aquarium::init(int argc, char **argv)
             }
 
             toggleBitset.set(static_cast<size_t>(TOGGLE::ENABLEFULLSCREENMODE));
-        //}
+        }
 
         mContext->mMSAACount = MSAACount;
     }
