@@ -106,6 +106,10 @@ void Texture::generateMipmap(uint8_t *input_pixels,
             {
                 height = 1;
             }
+            if (width == 0)
+            {
+                width = 1;
+            }
         }
     }
     else
@@ -124,6 +128,10 @@ void Texture::generateMipmap(uint8_t *input_pixels,
             if (height == 0)
             {
                 height = 1;
+            }
+            if (width == 0)
+            {
+                width = 1;
             }
         }
         free(pixels);

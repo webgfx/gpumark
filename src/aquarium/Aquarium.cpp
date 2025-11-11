@@ -392,7 +392,6 @@ bool Aquarium::init(int argc, char **argv)
 
     calculateFishCount();
 
-    //std::cout << "Init resources ..." << std::endl;
     getElapsedTime();
 
     const ResourceHelper *resourceHelper = mContext->getResourceHelper();
@@ -409,11 +408,10 @@ bool Aquarium::init(int argc, char **argv)
     loadReource();
     mContext->Flush();
 
-    //std::cout << "End loading.\nCost " << getElapsedTime() << "s totally." << std::endl;
+    std::cout << "End loading. Cost " << getElapsedTime() << "s totally." << std::endl;
     mContext->showWindow();
 
     resetFpsTime();
-
     return true;
 }
 
@@ -507,6 +505,7 @@ void Aquarium::loadPlacement()
 void Aquarium::loadModels()
 {
     bool enableInstanceddraw = toggleBitset.test(static_cast<size_t>(TOGGLE::ENABLEINSTANCEDDRAWS));
+    int modelCount = 0;
     for (const auto &info : g_sceneInfo)
     {
         if ((enableInstanceddraw && info.type == MODELGROUP::FISH) ||
@@ -514,7 +513,13 @@ void Aquarium::loadModels()
         {
             continue;
         }
-        loadModel(info);
+        try {
+            loadModel(info);
+            modelCount++;
+        } catch (const std::exception& e) {
+            std::cerr << "ERROR loading model " << info.namestr << ": " << e.what() << std::endl;
+            throw;
+        }
     }
 }
 
